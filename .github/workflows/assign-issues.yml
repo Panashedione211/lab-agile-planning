@@ -10,7 +10,13 @@ jobs:
 
     steps:
       - name: Assign Issue
-        uses: actions-ecosystem/action-assign@v2
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: Panashedione211 
+          script: |
+            github.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              assignees: ['Panashedione211']
+            })
